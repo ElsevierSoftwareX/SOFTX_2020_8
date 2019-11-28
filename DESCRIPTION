@@ -13,8 +13,7 @@ URL: https://dymium.org, https://github.com/dymium-org/dymium
 BugReports: https://github.com/dymium-org/dymium/issues
 Encoding: UTF-8
 LazyData: true
-VignetteBuilder:
-    knitr
+VignetteBuilder: knitr
 RoxygenNote: 7.0.1
 Depends:
   R (>= 3.5.0)
