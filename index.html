@@ -120,7 +120,7 @@
 <a href="#a-minimal-example" class="anchor"></a>A Minimal Example</h2>
 <p>This is a minimal example of a microsimulation model built with Dymium</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dymium)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; + dymiumCore 0.0.10      Date: 2019-11-27</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; + dymiumCore 0.0.10      Date: 2019-11-28</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt;                                   R: 3.6.1</span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;                                  OS: macOS Mojave 10.14.6</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;                                 GUI: X11</span></a>
@@ -128,60 +128,67 @@
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(data.table)</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(R6)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">pop_data &lt;-<span class="st"> </span><span class="kw">generate_population</span>()</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(pop_data<span class="op">$</span>ind_data)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;    pid hid    sex age marital_status</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 1:   1   1   male  32        married</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 2:   2   1 female  66  never married</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 3:   3   1   male  72      separated</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 4:   4   1   male  15 not applicable</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; 5:   5   1 female  45       divorced</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; 6:   6   1 female  49        married</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(pop_data<span class="op">$</span>hh_data)</a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;    hid hhsize</span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; 1:   1      6</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; 2:   2      3</span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; 3:   3      2</span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; 4:   4      1</span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; 5:   5      6</span></a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; 6:   6      2</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">728</span>)</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(toy_individuals)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;    pid hid age    sex marital_status partner_id father_id mother_id</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 1:   1   1  71   male  never married         NA        NA        NA</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 2:   2   2  31 female  never married         NA        NA        NA</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 3:   3   2  29 female  never married         NA        NA        NA</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 4:   4   3  38   male        married          5        NA        NA</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; 5:   5   3  25 female        married          4        NA        NA</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; 6:   6   3   0   male not applicable         NA         4         5</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(toy_households)</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;    hid did</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; 1:   1   1</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; 2:   2   2</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; 3:   3   3</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; 4:   4   4</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; 5:   5   5</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; 6:   6   6</span></a>
 <a class="sourceLine" id="cb2-28" data-line-number="28"></a>
 <a class="sourceLine" id="cb2-29" data-line-number="29">Pop &lt;-</a>
 <a class="sourceLine" id="cb2-30" data-line-number="30"><span class="st">  </span>Population<span class="op">$</span><span class="kw">new</span>(</a>
-<a class="sourceLine" id="cb2-31" data-line-number="31">    <span class="dt">ind_data =</span> pop_data<span class="op">$</span>ind_data,</a>
-<a class="sourceLine" id="cb2-32" data-line-number="32">    <span class="dt">hh_data =</span> pop_data<span class="op">$</span>hh_data,</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31">    <span class="dt">ind_data =</span> toy_individuals,</a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">    <span class="dt">hh_data =</span> toy_households,</a>
 <a class="sourceLine" id="cb2-33" data-line-number="33">    <span class="dt">pid_col =</span> <span class="st">"pid"</span>,</a>
 <a class="sourceLine" id="cb2-34" data-line-number="34">    <span class="dt">hid_col =</span> <span class="st">"hid"</span></a>
 <a class="sourceLine" id="cb2-35" data-line-number="35">  )</a>
-<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">#&gt; [17:44:49] INFO  dymiumCore self$get("Individual")$initialise_data: sets hid_col to: 'hid'</span></a>
-<a class="sourceLine" id="cb2-37" data-line-number="37"></a>
-<a class="sourceLine" id="cb2-38" data-line-number="38">Ind &lt;-<span class="st"> </span>Pop<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"Individual"</span>)</a>
-<a class="sourceLine" id="cb2-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb2-40" data-line-number="40"><span class="co"># create a choice model</span></a>
-<a class="sourceLine" id="cb2-41" data-line-number="41">choices &lt;-<span class="st"> </span><span class="kw"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span>(</a>
-<a class="sourceLine" id="cb2-42" data-line-number="42">  <span class="dt">sex =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'male'</span>, <span class="st">'female'</span>),</a>
-<a class="sourceLine" id="cb2-43" data-line-number="43">  <span class="dt">probs =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.1</span>,<span class="fl">0.9</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.9</span>,<span class="fl">0.1</span>)),</a>
-<a class="sourceLine" id="cb2-44" data-line-number="44">  <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'can drive'</span>, <span class="st">'cannot drive'</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'can drive'</span>, <span class="st">'cannot drive'</span>))</a>
-<a class="sourceLine" id="cb2-45" data-line-number="45">)</a>
-<a class="sourceLine" id="cb2-46" data-line-number="46"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(choices)</a>
-<a class="sourceLine" id="cb2-47" data-line-number="47"><span class="co">#&gt;       sex   probs                choices</span></a>
-<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; 1:   male 0.1,0.9 can drive,cannot drive</span></a>
-<a class="sourceLine" id="cb2-49" data-line-number="49"><span class="co">#&gt; 2: female 0.9,0.1 can drive,cannot drive</span></a>
-<a class="sourceLine" id="cb2-50" data-line-number="50"></a>
-<a class="sourceLine" id="cb2-51" data-line-number="51"><span class="co"># create a Transition</span></a>
-<a class="sourceLine" id="cb2-52" data-line-number="52">TransitionCandrive &lt;-<span class="st"> </span>R6<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class</a></span>(</a>
-<a class="sourceLine" id="cb2-53" data-line-number="53">  <span class="dt">classname =</span> <span class="st">"TransitionCandrive"</span>,</a>
-<a class="sourceLine" id="cb2-54" data-line-number="54">  <span class="dt">inherit =</span> TransitionClassification</a>
-<a class="sourceLine" id="cb2-55" data-line-number="55">)</a>
-<a class="sourceLine" id="cb2-56" data-line-number="56"></a>
-<a class="sourceLine" id="cb2-57" data-line-number="57">candrive &lt;-<span class="st"> </span>TransitionCandrive<span class="op">$</span><span class="kw">new</span>(Ind, choices)</a>
-<a class="sourceLine" id="cb2-58" data-line-number="58"></a>
-<a class="sourceLine" id="cb2-59" data-line-number="59"><span class="kw"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(</a>
-<a class="sourceLine" id="cb2-60" data-line-number="60">  <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(candrive<span class="op">$</span><span class="kw">get_result</span>()[[<span class="st">'response'</span>]]),</a>
-<a class="sourceLine" id="cb2-61" data-line-number="61">  <span class="dt">main =</span> <span class="st">"Transition result: driver status"</span>,</a>
-<a class="sourceLine" id="cb2-62" data-line-number="62">  <span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'steelblue'</span>, <span class="st">'salmon'</span>)</a>
-<a class="sourceLine" id="cb2-63" data-line-number="63">)</a></code></pre></div>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">#&gt; [20:47:15] WARN  dymiumCore self$initialise_data: Creating `hhsize` as it is not provided with `hh_data`.</span></a>
+<a class="sourceLine" id="cb2-37" data-line-number="37"><span class="co">#&gt; [20:47:15] INFO  dymiumCore self$get("Individual")$initialise_data: sets hid_col to: 'hid'</span></a>
+<a class="sourceLine" id="cb2-38" data-line-number="38"></a>
+<a class="sourceLine" id="cb2-39" data-line-number="39">Ind &lt;-<span class="st"> </span>Pop<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"Individual"</span>)</a>
+<a class="sourceLine" id="cb2-40" data-line-number="40">Ind</a>
+<a class="sourceLine" id="cb2-41" data-line-number="41"><span class="co">#&gt; Class: Individual</span></a>
+<a class="sourceLine" id="cb2-42" data-line-number="42"><span class="co">#&gt;  Inheritance: Individual &lt;- Agent &lt;- Entity &lt;- Generic &lt;- R6</span></a>
+<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="co">#&gt;  Number_of_entities: 373</span></a>
+<a class="sourceLine" id="cb2-44" data-line-number="44"><span class="co">#&gt;  Number_of_removed_entities: 0</span></a>
+<a class="sourceLine" id="cb2-45" data-line-number="45"><span class="co">#&gt;  Data[rows, cols]: attrs[373, 8]</span></a>
+<a class="sourceLine" id="cb2-46" data-line-number="46"></a>
+<a class="sourceLine" id="cb2-47" data-line-number="47"><span class="co"># create a probabilistic model</span></a>
+<a class="sourceLine" id="cb2-48" data-line-number="48">driver_status_rate &lt;-<span class="st"> </span><span class="kw"><a href="https://Rdatatable.gitlab.io/data.table/reference/data.table.html">data.table</a></span>(</a>
+<a class="sourceLine" id="cb2-49" data-line-number="49">  <span class="dt">sex =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'male'</span>, <span class="st">'female'</span>),</a>
+<a class="sourceLine" id="cb2-50" data-line-number="50">  <span class="dt">probs =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.3</span>,<span class="fl">0.7</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.4</span>,<span class="fl">0.6</span>)),</a>
+<a class="sourceLine" id="cb2-51" data-line-number="51">  <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'can drive'</span>, <span class="st">'cannot drive'</span>), <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'can drive'</span>, <span class="st">'cannot drive'</span>))</a>
+<a class="sourceLine" id="cb2-52" data-line-number="52">)</a>
+<a class="sourceLine" id="cb2-53" data-line-number="53">driver_status_rate</a>
+<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt;       sex   probs                choices</span></a>
+<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt; 1:   male 0.3,0.7 can drive,cannot drive</span></a>
+<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; 2: female 0.4,0.6 can drive,cannot drive</span></a>
+<a class="sourceLine" id="cb2-57" data-line-number="57"></a>
+<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co"># create a Transition for driver status</span></a>
+<a class="sourceLine" id="cb2-59" data-line-number="59">TransitionCandrive &lt;-<span class="st"> </span>R6<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/R6/man/R6Class.html">R6Class</a></span>(</a>
+<a class="sourceLine" id="cb2-60" data-line-number="60">  <span class="dt">classname =</span> <span class="st">"TransitionCandrive"</span>,</a>
+<a class="sourceLine" id="cb2-61" data-line-number="61">  <span class="dt">inherit =</span> TransitionClassification</a>
+<a class="sourceLine" id="cb2-62" data-line-number="62">)</a>
+<a class="sourceLine" id="cb2-63" data-line-number="63"></a>
+<a class="sourceLine" id="cb2-64" data-line-number="64">TransCanDrive &lt;-<span class="st"> </span>TransitionCandrive<span class="op">$</span><span class="kw">new</span>(Ind, driver_status_rate)</a>
+<a class="sourceLine" id="cb2-65" data-line-number="65"></a>
+<a class="sourceLine" id="cb2-66" data-line-number="66"><span class="kw"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span>(</a>
+<a class="sourceLine" id="cb2-67" data-line-number="67">  <span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>(TransCanDrive<span class="op">$</span><span class="kw">get_result</span>()[[<span class="st">'response'</span>]]),</a>
+<a class="sourceLine" id="cb2-68" data-line-number="68">  <span class="dt">main =</span> <span class="st">"Transition result: driver status"</span>,</a>
+<a class="sourceLine" id="cb2-69" data-line-number="69">  <span class="dt">col =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'steelblue'</span>, <span class="st">'salmon'</span>)</a>
+<a class="sourceLine" id="cb2-70" data-line-number="70">)</a></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
 </div>
 </div>
@@ -221,7 +228,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 <li><a href="https://travis-ci.org/dymium-org/dymium"><img src="https://travis-ci.org/dymium-org/dymium.svg?branch=master" alt="Travis build status"></a></li>
 </ul>
 </div>
