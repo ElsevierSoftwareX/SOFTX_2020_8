@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 # dymium <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/dymium-org/dymium.svg?branch=master)](https://travis-ci.org/dymium-org/dymium)
 <!-- badges: end -->
 
@@ -38,39 +38,40 @@ This is a minimal example of a microsimulation model built with Dymium
 library(dymium)
 library(data.table)
 library(R6)
+set.seed(728)
 
-pop_data <- generate_population()
-head(pop_data$ind_data)
-head(pop_data$hh_data)
+head(toy_individuals)
+head(toy_households)
 
 Pop <-
   Population$new(
-    ind_data = pop_data$ind_data,
-    hh_data = pop_data$hh_data,
+    ind_data = toy_individuals,
+    hh_data = toy_households,
     pid_col = "pid",
     hid_col = "hid"
   )
 
 Ind <- Pop$get("Individual")
+Ind
 
-# create a choice model
-choices <- data.table(
+# create a probabilistic model
+driver_status_rate <- data.table(
   sex = c('male', 'female'),
-  probs = list(c(0.1,0.9), c(0.9,0.1)),
+  probs = list(c(0.3,0.7), c(0.4,0.6)),
   choices = list(c('can drive', 'cannot drive'), c('can drive', 'cannot drive'))
 )
-head(choices)
+driver_status_rate
 
-# create a Transition
+# create a Transition for driver status
 TransitionCandrive <- R6::R6Class(
   classname = "TransitionCandrive",
   inherit = TransitionClassification
 )
 
-candrive <- TransitionCandrive$new(Ind, choices)
+TransCanDrive <- TransitionCandrive$new(Ind, driver_status_rate)
 
 barplot(
-  table(candrive$get_result()[['response']]),
+  table(TransCanDrive$get_result()[['response']]),
   main = "Transition result: driver status",
   col = c('steelblue', 'salmon')
 )
