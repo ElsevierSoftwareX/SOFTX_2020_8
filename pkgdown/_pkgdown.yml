@@ -1,0 +1,16 @@
+url: http://main.dymium.org
+destination: docs
+
+navbar:
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: 'Get started'
+        href: articles/get-started.html
+      - text: 'The stages in a microsimulation model development'
+        href: articles/workflow.html
+      - text: 'Using modules'
+        href: articles/modules.html
+      - text: 'Create a microsimulation modelling pipeline'
+        href: articles/modelling-pipeline.html
