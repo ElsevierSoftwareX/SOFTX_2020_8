@@ -1,0 +1,80 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# dymium <img src="man/figures/logo.png" align="right" alt="" width="120" />
+
+<!-- badges: start -->
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Travis build status](https://travis-ci.org/dymium-org/dymium.svg?branch=master)](https://travis-ci.org/dymium-org/dymium)
+<!-- badges: end -->
+
+The goal of dymium is to provide an easy-to-install and update solution for the dymium packages. If you are interested in learning about the framework and start developing your own microsimulation model using R please see [dymiumCore](https://github.com/dymium-org/dymiumCore). Some ready to use urban microsimulation modules are available at [dymiumModules](https://github.com/dymium-org/dymiumModules).
+
+## Installation
+
+The dymium package has not been released on CRAN, but you can install [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("dymium-org/dymium")
+```
+
+## Getting started
+
+## A Minimal Example
+This is a minimal example of a microsimulation model built with Dymium
+```{r example, fig.asp=0.6, dpi=300}
+library(dymium)
+library(data.table)
+library(R6)
+
+pop_data <- generate_population()
+head(pop_data$ind_data)
+head(pop_data$hh_data)
+
+Pop <-
+  Population$new(
+    ind_data = pop_data$ind_data,
+    hh_data = pop_data$hh_data,
+    pid_col = "pid",
+    hid_col = "hid"
+  )
+
+Ind <- Pop$get("Individual")
+
+# create a choice model
+choices <- data.table(
+  sex = c('male', 'female'),
+  probs = list(c(0.1,0.9), c(0.9,0.1)),
+  choices = list(c('can drive', 'cannot drive'), c('can drive', 'cannot drive'))
+)
+head(choices)
+
+# create a Transition
+TransitionCandrive <- R6::R6Class(
+  classname = "TransitionCandrive",
+  inherit = TransitionClassification
+)
+
+candrive <- TransitionCandrive$new(Ind, choices)
+
+barplot(
+  table(candrive$get_result()[['response']]),
+  main = "Transition result: driver status",
+  col = c('steelblue', 'salmon')
+)
+```
+
+# Credits
+This repo is basically a modified version of the [Tidyverse](https://github.com/tidyverse/tidyverse) package to load the dymium packages.

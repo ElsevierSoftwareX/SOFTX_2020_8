@@ -1,0 +1,13 @@
+^LICENSE\.md$
+^dymium\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^vignettes/get-started\.Rmd$
+^docs$
+^pkgdown$
+^vignettes/workflow\.Rmd$
+^vignettes/modelling-pipeline\.Rmd$
+^vignettes/modules\.Rmd$
+^\.travis\.yml$
+^appveyor\.yml$
+^tic\.R$
