@@ -1,7 +1,11 @@
 pandoc: '2.2'
 pkgdown: 1.4.1
 pkgdown_sha: ~
-articles: []
+articles:
+  get-started: get-started.html
+  modelling-pipeline: modelling-pipeline.html
+  modules: modules.html
+  workflow: workflow.html
 urls:
   reference: http://main.dymium.org/reference
   article: http://main.dymium.org/articles
