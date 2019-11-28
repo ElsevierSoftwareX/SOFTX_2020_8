@@ -1,0 +1,16 @@
+---
+title: "Create your microsimulation pipeline"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dymium)
+```
+
+# Modular microsimulation modelling pipeline

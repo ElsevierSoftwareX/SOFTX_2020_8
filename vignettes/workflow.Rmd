@@ -1,0 +1,28 @@
+---
+title: "The stages in a microsimulation model development"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dymium)
+```
+
+# The stages
+
+## Data preparation
+
+## Microsimulation
+
+## Validation
+
+## Calibration
+
+## Sensitivity analysis
+
+## Making insights

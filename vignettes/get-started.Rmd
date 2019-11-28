@@ -1,0 +1,47 @@
+---
+title: "Get started with dymium"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+
+```
+
+# Pre-requisitons
+
+It is recommended that you use RStudio as your R [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) which can be downloaded for free from [this link](www.rstudio.com/download).
+
+
+# Installation
+
+This tutorial is a quick start guide to build your first microsimulation model pipeline with `dymium`. 
+
+We begin by install the dymium package using either the `devtools` package or the `remotes` package.
+
+```{r eval = FALSE}
+# the lines below install the `remotes` package if it is not already installed.
+if (!require("remotes")) {
+  install.packages("remotes")  
+}
+
+# this install the `dymium` package from its github repo.
+remotes::install_github("dymium-org/dymium")
+```
+
+By install the `dymium` package it will automatically install other dymium packages such as `dymiumCore` and `dymiumApp` as part of its dependencies. Basically, the `dymium` package act as a master package that when it is loaded it loads all other dymium packages, like the `tidyverse` package.
+
+# First model
+
+**Make sure you have completed the installation steps in the previous section.**
+
+To create your first dymium model you must first prepare your microdata which is the data of your agents.`dymiumCore` provides a toy dataset which contains linkable records of individuals and households with some basic attributes and relationship variables. But first you must load the package into your active R environment.
+
+```{r}
+library(dymium)
+```

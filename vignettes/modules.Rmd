@@ -1,0 +1,127 @@
+---
+title: "Using modules"
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    math: katex
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dymium)
+knitr::opts_knit$set(root.dir = here::here())
+```
+```{r}
+here::here()
+```
+
+
+# Using existing modules
+
+# Customise existing modules
+
+## change model parameters
+
+# Authoring your own modules
+
+## requiments
+
+Understand data.table and R6 packages
+
+## create a module template
+
+```{r eval = FALSE}
+create_new_module(name = "demography", 
+                  event = c("birth", "death"), 
+                  path = "modules")
+```
+
+```{r eval = FALSE}
+# It is recommended to assign this module to a variable called: event_demography_birth
+# for example: event_demography_birth <- modules::use('/Users/amarin/Google Drive/PhD/projects/dymium/packages/dymium/modules/demography/birth.R')
+# default setup, you may edit the below import statments to match your requirements.
+modules::import('dymiumCore')
+modules::expose(here::here('/Users/amarin/Google Drive/PhD/projects/dymium/packages/dymium/modules/demography/logger.R')) # import lgr's logger. To use the logger use 'lg' (default logger's name).
+constants <- modules::use(here::here('/Users/amarin/Google Drive/PhD/projects/dymium/packages/dymium/modules/demography/constants.R'))
+helpers <- modules::use(here::here('/Users/amarin/Google Drive/PhD/projects/dymium/packages/dymium/modules/demography/helpers.R'))
+
+modules::export('^^run|^util|^test') # default exported functions
+
+#' Birth
+#'
+#' @param object a dymium agent class object
+#' @param model a model object or a list of model objects
+#' @param target a positive integers or a list of positive integers
+#' @param time_steps positive integer()
+#'
+#' @return object
+run <- function(object, model = NULL, target = NULL, time_steps = NULL) {
+
+  # early return if `time_steps` is not the current time
+  if (!dymiumCore::is_scheduled(time_steps)) {
+    return(invisible(object))
+  }
+
+  lg$info('Running Birth')
+
+  # uncomment the line belows if the event doesn't require `model`
+  # eg. If the event is deterministic like ageing.
+  # if (!is.null(model)) {
+  #   lg$warn('`model` will not be used.')
+  # }
+
+  # uncomment the line belows if the event doesn't require `target`
+  # eg. If the event is to be applied to all agents.
+  # if (!is.null(target)) {
+  #   lg$warn('`target` will not be used.')
+  # }
+
+  # (Recommended)
+  # create a reference to the main agent object for easy access eg:
+  # PopObj <- assign_reference(object, Pop)
+
+  # (Recommended)
+  # create a reference to ModelContainer for easy access eg:
+  # ModObj <- assign_reference(object, ModelContainer)
+
+  # TODO: Target object
+  # create a reference to TargetContainer (Not yet implemented) for easy access
+  # TargetObj <- assign_reference(object, TargetContainer)
+
+  # return the first argument (`object`) to make event functions pipe-able.
+  invisible(object)
+}
+
+# private utility functions (.util_*) -------------------------------------
+.util_function <- function(x) {}
+
+TransitionEventname <-
+  R6::R6Class(classname = 'TransitionEventname',
+              inherit = dymiumCore::Transition,
+              public = list(
+
+              ))
+
+# exported utility functions (util_*) -------------------------------------
+util_function <- function(x) {}
+
+```
+## create a pipeline
+
+```{r eval = FALSE}
+# run for 20 time steps
+for (i in c(1:20)) {
+  world %>%
+    event_1$run() %>%
+    ... %>%
+    event_n$run()
+}
+```
+
