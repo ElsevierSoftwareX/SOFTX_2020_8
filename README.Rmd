@@ -16,7 +16,10 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Travis build status](https://travis-ci.org/dymium-org/dymium.svg?branch=master)](https://travis-ci.org/dymium-org/dymium)
+[![CRAN status](https://www.r-pkg.org/badges/version/dymium](https://CRAN.R-project.org/package=dymium)
+[![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/dymium)](https://CRAN.R-project.org/package=dymium)
 <!-- badges: end -->
 
 The goal of dymium is to provide an easy-to-install and update solution for the dymium packages. If you are interested in learning about the framework and start developing your own microsimulation model using R please see [dymiumCore](https://github.com/dymium-org/dymiumCore). Some ready to use urban microsimulation modules are available at [dymiumModules](https://github.com/dymium-org/dymiumModules).
