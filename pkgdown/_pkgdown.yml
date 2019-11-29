@@ -14,3 +14,5 @@ navbar:
         href: articles/modules.html
       - text: 'Create a microsimulation modelling pipeline'
         href: articles/modelling-pipeline.html
+      - text: 'A residential mobility example'
+        href: articles/residential-mobility.html
