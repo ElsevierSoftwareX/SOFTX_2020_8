@@ -8,16 +8,12 @@ latex: false
 
 addons:
   apt:
+    update: true
     packages:
       - libudunits2-dev
       - libgdal-dev
       - libproj-dev
       - libgeos-dev
-
-addons:
-  apt:
-    update: true
-    packages:
       - libfreetype6
       - libmagick++-dev
       - cargo
