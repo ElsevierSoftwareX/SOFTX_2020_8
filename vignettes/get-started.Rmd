@@ -5,7 +5,11 @@ title: "Get started with dymium"
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  gganimate = list(
+    nframes = 50
+  ),
+  out.width = '100%'
 )
 ```
 
@@ -162,6 +166,6 @@ anim <-
   theme_minimal() + 
   labs(title = "Marital status across 10 iterations") +
   theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
-anim
+animate(anim, width = 800, height = 600, res = 150)
 ```
 
