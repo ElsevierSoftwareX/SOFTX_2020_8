@@ -6,6 +6,12 @@ cache:
   - $HOME/.ccache
 latex: false
 
+addons:
+  apt:
+    packages:
+      - libudunits2-dev
+      - libgdal-dev
+
 env:
   global:
   - MAKEFLAGS="-j 2"
