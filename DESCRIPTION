@@ -28,11 +28,11 @@ Imports:
 Remotes:
   github::dymium-org/dymiumCore
 Suggests: 
-    rmarkdown,
-    knitr,
-    sf,
-    ggplot2,
-    gganimate,
-    DiagrammeR,
-    caret,
-    reactable
+  rmarkdown,
+  knitr,
+  sf,
+  ggplot2,
+  gganimate,
+  DiagrammeR,
+  caret,
+  reactable
