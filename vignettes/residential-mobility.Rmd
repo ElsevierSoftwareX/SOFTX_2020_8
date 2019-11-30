@@ -13,18 +13,20 @@ editor_options:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>", 
+  out.width = '100%',
   fig.align = "center", 
-  fig.width = 7
+  fig.width =  7,
+  dpi = 150
 )
 ```
 
 ```{r setup}
 library(dymium)
-if (!requireNamespace("pacman")) {
-  install.packages("pacman")  
-}
-pacman::p_load("DiagrammeR", "ggplot2", "gganimate", "sf", "magrittr", "data.table")
-pacman::p_load_current_gh('yihui/knitr')
+library(data.table)
+library(sf)
+library(ggplot2)
+library(gganimate)
+library(DiagrammeR)
 
 set.seed(728)
 ```
@@ -45,6 +47,10 @@ graph LR
   ")
 ```
 
+
+## Required knowledge
+
+This example requires the reader to know the grammar of data operations of the `data.table` package as it is quite different from the base R `data.frame` and also knows the `R6` package to fully utilise the base classes of `dymiumCore`.
 
 ## Assumptions
 
@@ -163,21 +169,27 @@ TransitionMove <- R6::R6Class(
 
 This transition class `TransitionMove` allows a probabilistic model such as the one we have just created, `move_rate`, for simulation (Monte Carlo).
 
+The steps of the residential mobility event are inside the following function. 
 
 ```{r}
 event_ltmobility_residentialRelocation <- function(world) {
+  # Get the household object from `world`
   Hh <- world$get("Household")  
 
   # simulate the first stage - move or not move? ----
   TransMove <- TransitionMove$new(x = Hh, model = world$get("move_rate")$get())
+  
+  # get_result returns a data.table with two columns `id` and `response`.
   moving_household_ids <- TransMove$get_result()[response == "yes", id]
   
   # simulate the second stage - where to? ----
   if (length(moving_household_ids) > 0) {
     # create a choiceset for each moving household
+    # get only `hid` and `zid` of the moving households by creating a copy of 
+    # their attribute data.
     mover_choicemodel <- Hh$get_data(ids = moving_household_ids)[, c("hid", "zid")]
     
-    # create place holders for choicesets and their probabilities
+    # create emptied columns to store choicesets and their probabilities
     mover_choicemodel[, `:=`(choices = list(), probs = list())] 
     
     # get the list of neighboring zones. Note that the second `$get()` is required 
@@ -211,10 +223,12 @@ event_ltmobility_residentialRelocation <- function(world) {
 
 ### create a microsimulation pipeline
 
+To microsimulate the residential mobility event for multiple interations we can simply use a flow control statement such as a 'for' loop. The below chunk of codes run the residential mobility event that we have just created for 10 iterations and at the end of each iteration the total number of households in each zone will be stored inside count_ls which will be indexed by the iteration number.
+
 ```{r}
 start_iter <- 1
 end_iter <- 10
-count_ls <- list()
+count_ls <- list() 
 for (i in start_iter:end_iter) {
   world$start_iter(i, unit = "year") %>%
     event_ltmobility_residentialRelocation(.)
@@ -228,6 +242,9 @@ for (i in start_iter:end_iter) {
 
 
 ## Visualise the result
+
+To visualise the spatial dynamic of households we use the `gganimate` and `ggplot` packages.
+
 ```{r}
 count <- rbindlist(count_ls)
 count <- merge(count, toy_zones, by = "zid") %>%
@@ -235,7 +252,7 @@ count <- merge(count, toy_zones, by = "zid") %>%
 ```
 
 
-```{r, eval = FALSE, include = FALSE, fig.align = "center", fig.asp = 1, fig.width = 7}
+```{r, eval = FALSE, include = FALSE}
 g <-
   ggplot(count) +
   geom_sf(aes(fill = count)) +
@@ -248,7 +265,7 @@ g <-
 g
 ```
 
-```{r gapgif, fig.show='animate', ffmpeg.format='gif', dev='jpeg', fig.align = "center", fig.asp = 1, fig.width = 7}
+```{r gapgif, fig.show='animate', ffmpeg.format='gif', dev='jpeg', fig.asp = 1, fig.align = "center", fig.width =  7, message=FALSE, warning=FALSE}
 plots <- purrr::map(1:10, ~ {
   ggplot(subset(count, iteration == .x)) +
     geom_sf(aes(fill = count)) +
@@ -261,7 +278,7 @@ plots <- purrr::map(1:10, ~ {
 purrr::walk(plots, print)
 ```
 
-```{r fig.align = "center", fig.asp = 1, fig.width = 7, fig.height = 5}
+```{r fig.height = 7}
 anim <- 
   ggplot(count, aes(iteration, count, group = sa2_name11)) +
   geom_line() + 
@@ -273,6 +290,6 @@ anim <-
   theme_minimal() + 
   labs(title = "Counts of households by zones") +
   theme(plot.margin = margin(5.5, 40, 5.5, 5.5))
-animate(anim)
+anim
 ```
 

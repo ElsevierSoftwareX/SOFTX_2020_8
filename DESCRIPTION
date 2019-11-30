@@ -29,4 +29,8 @@ Remotes:
   github::dymium-org/dymiumCore
 Suggests: 
     rmarkdown,
-    knitr
+    knitr,
+    sf,
+    ggplot2,
+    gganimate,
+    DiagrammeR
