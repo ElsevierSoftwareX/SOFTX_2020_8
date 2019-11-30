@@ -36,7 +36,7 @@ set.seed(728)
 
 Residential mobility or household relocation plays an important role in determining the urban traffic and the housing market activity. In this example, we create a simple residential mobility model which comprises of two stages. The first stage is for households to decide whether to move from their current residence. If they decide to move then they will go onto the second stage otherwise they will remain where they are. The second stage is for the moving households to decide where they will relocate to. 
 
-```{r , echo = FALSE, fig.cap="Flowchart of the processes in the simple residential mobility model"}
+```{r , echo = FALSE, fig.cap="Flowchart of the processes in the simple residential mobility model", fig.width = 4, fig.height = 4, fig.asp=0.3}
 mermaid("
 graph LR
   Start((start))-->FirstStage{Relocate?}
@@ -254,7 +254,7 @@ count <- merge(count, toy_zones, by = "zid") %>%
 
 As a spatial plot..
 
-```{r}
+```{r} 
 anim <-
   ggplot(count) +
   geom_sf(aes(fill = count)) +
