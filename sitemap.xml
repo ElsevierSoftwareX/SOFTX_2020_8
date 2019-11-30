@@ -13,13 +13,16 @@
     <loc>http://main.dymium.org/reference/dymium_update.html</loc>
   </url>
   <url>
-    <loc>http://main.dymium.org/articles/get-started.html</loc>
+    <loc>http://main.dymium.org/articles/getting-started.html</loc>
   </url>
   <url>
     <loc>http://main.dymium.org/articles/modelling-pipeline.html</loc>
   </url>
   <url>
     <loc>http://main.dymium.org/articles/modules.html</loc>
+  </url>
+  <url>
+    <loc>http://main.dymium.org/articles/residential-mobility.html</loc>
   </url>
   <url>
     <loc>http://main.dymium.org/articles/workflow.html</loc>

@@ -2,9 +2,10 @@ pandoc: '2.2'
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
-  get-started: get-started.html
+  getting-started: getting-started.html
   modelling-pipeline: modelling-pipeline.html
   modules: modules.html
+  residential-mobility: residential-mobility.html
   workflow: workflow.html
 urls:
   reference: http://main.dymium.org/reference
