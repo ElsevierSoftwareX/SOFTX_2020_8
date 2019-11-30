@@ -33,4 +33,6 @@ Suggests:
     sf,
     ggplot2,
     gganimate,
-    DiagrammeR
+    DiagrammeR,
+    caret,
+    reactable
