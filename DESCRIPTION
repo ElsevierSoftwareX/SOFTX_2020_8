@@ -36,4 +36,5 @@ Suggests:
   DiagrammeR,
   caret,
   randomForest,
-  reactable
+  reactable,
+  gifski
