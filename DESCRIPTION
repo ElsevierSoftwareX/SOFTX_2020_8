@@ -37,4 +37,8 @@ Suggests:
   caret,
   randomForest,
   reactable,
-  gifski
+  transformr,
+  av,
+  png,
+  gifski,
+  magick
