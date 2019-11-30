@@ -1,10 +1,6 @@
 url: http://main.dymium.org
 destination: docs
 
-template:
-  params:
-    bootswatch: yeti
-
 toc:
   depth: 3
 

@@ -35,4 +35,5 @@ Suggests:
   gganimate,
   DiagrammeR,
   caret,
+  randomForest,
   reactable
