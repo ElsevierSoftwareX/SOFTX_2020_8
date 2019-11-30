@@ -254,9 +254,10 @@ count <- merge(count, toy_zones, by = "zid") %>%
   st_as_sf()
 ```
 
+As a spatial plot..
 
-```{r, eval = FALSE, include = FALSE}
-g <-
+```{r}
+anim <-
   ggplot(count) +
   geom_sf(aes(fill = count)) +
   geom_sf_label(aes(label = sa2_name11)) +
@@ -265,21 +266,23 @@ g <-
        subtitle = "Iteration: {frame_time}") +
   scale_fill_viridis_c(option = "B") +
   transition_time(iteration)
-g
+animate(anim, width = 800, height = 800, res = 100)
 ```
 
-```{r gapgif, fig.show='animate', ffmpeg.format='gif', dev='jpeg', fig.asp = 1, fig.align = "center", fig.width =  7, message=FALSE, warning=FALSE}
-plots <- purrr::map(1:10, ~ {
-  ggplot(subset(count, iteration == .x)) +
-    geom_sf(aes(fill = count)) +
-    geom_sf_label(aes(label = sa2_name11)) +
-    # Here come the gganimate specific bits
-    scale_fill_viridis_c(option = "B", limits = c(0,28)) +
-    labs(title = "Spatial distribution of households", 
-         subtitle = paste0("Iteration: ", .x))
-})
-purrr::walk(plots, print)
-```
+<!-- ```{r gapgif, fig.show='animate', ffmpeg.format='gif', dev='jpeg', fig.asp = 1, fig.align = "center", fig.width =  7, message=FALSE, warning=FALSE} -->
+<!-- plots <- purrr::map(1:10, ~ { -->
+<!--   ggplot(subset(count, iteration == .x)) + -->
+<!--     geom_sf(aes(fill = count)) + -->
+<!--     geom_sf_label(aes(label = sa2_name11)) + -->
+<!--     # Here come the gganimate specific bits -->
+<!--     scale_fill_viridis_c(option = "B", limits = c(0,28)) + -->
+<!--     labs(title = "Spatial distribution of households",  -->
+<!--          subtitle = paste0("Iteration: ", .x)) -->
+<!-- }) -->
+<!-- purrr::walk(plots, print) -->
+<!-- ``` -->
+
+As a time series plot
 
 ```{r}
 anim <- 
