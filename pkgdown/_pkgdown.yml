@@ -1,18 +1,29 @@
 url: http://main.dymium.org
 destination: docs
 
+template:
+  params:
+    bootswatch: yeti
+
+toc:
+  depth: 3
+
 navbar:
-  components:
-    articles:
-      text: Articles
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: Getting Started
+      href: articles/getting-started.html
+    - text: Articles
       menu:
-      - text: 'Get started'
-        href: articles/get-started.html
-      - text: 'The stages in a microsimulation model development'
+      - text: 'Basics'
+      - text: 'Stages in microsimulation model development'
         href: articles/workflow.html
-      - text: 'Using modules'
+      - text: 'Creating and using modules'
         href: articles/modules.html
       - text: 'Create a microsimulation modelling pipeline'
         href: articles/modelling-pipeline.html
+      - text: "------------------"
+      - text: 'Use cases'
       - text: 'A residential mobility example'
         href: articles/residential-mobility.html

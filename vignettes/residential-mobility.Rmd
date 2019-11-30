@@ -5,8 +5,6 @@ vignette: >
   %\VignetteIndexEntry{Residential mobility}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
-  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -282,7 +280,7 @@ animate(anim, width = 800, height = 800, res = 100)
 <!-- purrr::walk(plots, print) -->
 <!-- ``` -->
 
-As a time series plot
+As a time series plot..
 
 ```{r}
 anim <- 
