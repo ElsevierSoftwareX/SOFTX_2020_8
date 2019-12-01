@@ -12,8 +12,8 @@ v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org
 [![Travis build
 status](https://travis-ci.org/dymium-org/dymium.svg?branch=master)](https://travis-ci.org/dymium-org/dymium)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/dymiumCore)](https://CRAN.R-project.org/package=dymiumCore)
-[![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/dymiumCore)](https://CRAN.R-project.org/package=dymiumCore)
+status](https://www.r-pkg.org/badges/version/dymium)](https://CRAN.R-project.org/package=dymium)
+[![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/dymium)](https://CRAN.R-project.org/package=dymium)
 <!-- badges: end -->
 
 The goal of dymium is to provide an easy-to-install and update solution
@@ -41,7 +41,7 @@ This is a minimal example of a microsimulation model built with Dymium
 
 ``` r
 library(dymium)
-#> + dymiumCore 0.0.10      Date: 2019-11-29
+#> + dymiumCore 0.0.10      Date: 2019-12-02
 #>                                   R: 3.6.1
 #>                                  OS: macOS Mojave 10.14.6
 #>                                 GUI: X11
@@ -75,8 +75,8 @@ Pop <-
     pid_col = "pid",
     hid_col = "hid"
   )
-#> [23:37:26] WARN  dymiumCore self$initialise_data: Creating `hhsize` as it is not provided with `hh_data`.
-#> [23:37:26] INFO  dymiumCore self$get("Individual")$initialise_data: sets hid_col to: 'hid'
+#> [09:56:31] WARN  dymiumCore self$initialise_data: Creating `hhsize` as it is not provided with `hh_data`.
+#> [09:56:31] INFO  dymiumCore self$get("Individual")$initialise_data: sets hid_col to: 'hid'
 
 Ind <- Pop$get("Individual")
 Ind

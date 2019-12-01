@@ -20,7 +20,15 @@ knitr::opts_chunk$set(
 
 ## Pre-requisitons
 
-It is recommended that you use RStudio as your R [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) which can be downloaded for free from [this link](www.rstudio.com/download). dymium heavily relies on the `data.table` package for data operations and the `R6` package for creating and extending classes. It is recommended that you get yourself familiar with those two packages. However, it should be quite straight forward to see how they are being used in the getting started guide. So feel free to go on and read the rest of the guide! :) and also to let me know how I can improve this so that you can better understand **dymium**. 
+It is recommended that you use RStudio as your R 
+[IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) 
+which can be downloaded for free from [this link](www.rstudio.com/download). 
+dymium heavily relies on the `data.table` package for data operations and the `R6` 
+package for creating and extending classes. It is recommended that you get yourself 
+familiar with those two packages. However, it should be quite straight forward to
+see how they are being used in the getting started guide. So feel free to go on 
+and read the rest of the guide! :) and also to let me know how I can improve this
+so that you can better understand **dymium**. 
 
 ## Installation
 
@@ -36,13 +44,23 @@ if (!require("remotes")) {
 remotes::install_github("dymium-org/dymium")
 ```
 
-By install the `dymium` package it will automatically install other dymium packages such as `dymiumCore` and `dymiumGUI` as part of its dependencies. Basically, the `dymium` package act as a master package that when it is loaded it loads all other dymium packages, like the `tidyverse` package.
+By install the `dymium` package it will automatically install other dymium packages
+such as `dymiumCore` and `dymiumGUI` as part of its dependencies. Basically, the `dymium`
+package act as a master package that when it is loaded it loads all other dymium packages,
+like the `tidyverse` package.
 
 ## Build your world!
 
-In dymium, a 'world' object contains everything from representations of entities (eg: individuals, households, residential building, firms, and so on) to the rules (eg: probabilistic models, rates, exogenous variables, etc) that the entities of your world object follow. 
+In dymium, a 'world' object contains everything from representations of entities
+(eg: individuals, households, residential building, firms, and so on) to the rules
+(eg: probabilistic models, rates, exogenous variables, etc) that the entities in
+your world follow. 
 
-Hence, to create your first dymium model you must first prepare your `world` and add your entities and rules that they will follow.`dymiumCore` provides four toy datasets which are individuals, households, residential buildings and zones. All of them are linkable by the id columns. All individuals belong to households, all households occupy residential buildings, all residential buildings are in the zones. 
+Hence, to create your first dymium model you must first prepare your `world` and
+add your entities and rules that they will follow.`dymiumCore` provides four toy
+datasets which are individuals, households, residential buildings and zones. All
+of them are linkable by the id columns. All individuals belong to households, all
+households occupy residential buildings, all residential buildings are in the zones. 
 
 Let's create a world object.
 
@@ -52,20 +70,28 @@ library(dymium)
 world <- World$new()
 ```
 
-`World$new()` is a [R6::R6Class] constructor, a constructor is a class method that creates an object of that class. So the line above creates a `World` object and assign it as `world` to your global environment. Now, your newly created world is still emptied. So we are going to add individuals into it using the `toy_individuals` dataset from `dymiumCore`. 
+`World$new()` is a `R6::R6Class()` constructor, a constructor is a class method that 
+creates an object of that class. So the line above creates a `World` object and assigns 
+it as `world` to your global environment. Now, your newly created world is still emptied.
+So we are going to add individuals into it using the `toy_individuals` dataset from `dymiumCore`. 
 
 ```{r}
 library(reactable)
 reactable::reactable(toy_individuals, filterable = TRUE, minRows = 10)
 ```
 
-To add individuals into world and you must first create an [Individual] object. The [Individual] class is provided by `dymiumCore`, it contains methods that help you to access and modify microdata of individuals such as the `toy_individuals` data. To see what methods and fields are available put `?Individual` into your R console and press enter.
+To add individuals into world and you must first create an Individual object. 
+The Individual class is provided by `dymiumCore`, it contains methods that help 
+you to access and modify microdata of individuals such as the `toy_individuals` data.
+To see what methods and fields are available put `?Individual` into your R console 
+and press enter.
  
 ```{r}
 Ind <- Individual$new(.data = toy_individuals, id_col = "pid")
 Ind
 ```
-By calling `Ind` it returns some useful information about the object such as the number of entities of class Individual and the inheritance structure. 
+By calling `Ind` it returns some useful information about the object such as the
+number of entities of class Individual and the inheritance structure. 
  
 Now let's add `Ind` into `world` using `world`'s `add` method. 
 
@@ -73,14 +99,23 @@ Now let's add `Ind` into `world` using `world`'s `add` method.
 world$add(Ind, name = "Individual")
 ```
 
-You can see from the warning message above that `name` is not needed when adding an Entity class to `world` since it will use the name of the class as the name of the added object. However, when you add a model object the `name` argument must be specified. Currently, only one instance of each Entity class can be added to `world` since there is no obvious benefit to adding multiple instances of the same class to `world` since it is probably easier and clearer just to combine them as one instance.
+You can see from the warning message above that `name` is not needed when adding 
+an Entity class to `world` since it will use the name of the class as the name 
+of the added object. However, when you add a model object the `name` argument must
+be specified. Currently, only one instance of each Entity class can be added to
+`world` since there is no obvious benefit to adding multiple instances of the same
+class to `world` since it is probably easier and clearer just to combine them as
+one instance.
 
-Now that your `world` contains Individual agents we may want to introduce some rules so that we can start to microsimulate something!
+Now that your `world` contains Individual agents we may want to introduce some 
+rules so that we can start to microsimulate something!
 
 
 Let's microsimulate changes in marital status of the Individual agents.
 
-Using `toy_individuals` as the data to estimate a marital status model with the `caret` package. By default, `caret` will fit a random forest model if the `method` argument in `train` is not specified.
+Using `toy_individuals` as the data to estimate a marital status model with the
+`caret` package. By default, `caret` will fit a random forest model if the `method`
+argument in `train` is not specified.
 
 ```{r}
 library(caret)
@@ -120,7 +155,8 @@ event_demography_maritalStatus <- function(world) {
 }
 ```
 
-Since the marital status model uses age of the individual as an explanatory variable we make all individuals aged one year more every iteration
+Since the marital status model uses age of the individual as an explanatory variable
+we make all individuals aged one year more every iteration
 
 ```{r}
 event_demography_age <- function(world) {
@@ -136,9 +172,14 @@ event_demography_age <- function(world) {
 }
 ```
 
-When calling the `get_data` method of an Entity class and specify `copy` as `FALSE` the reference to the data will be returned hence allows  the data to be updated in place/by reference. If `copy` is `TRUE` or not given a copy of the data will be returned hence any mofification to that data wouldn't change the data of those entities. 
+When calling the `get_data` method of an Entity class and specify `copy` as `FALSE`
+the reference to the data will be returned hence allows  the data to be updated 
+in place/by reference. If `copy` is `TRUE` or not given a copy of the data will
+be returned hence any mofification to that data wouldn't change the data of those
+entities. 
 
-Now, build a microsimulation pipeline to run for 10 iterations and store some statistics at the end of each iteration for visualisation later. 
+Now, build a microsimulation pipeline to run for 10 iterations and store some 
+statistics at the end of each iteration for visualisation later. 
 
 ```{r}
 count_ls <- list()
@@ -153,7 +194,8 @@ for (i in 1:10) {
 }
 ```
 
-Create a visualisation to show how the distribution of marital status changes over the course of the simulation.
+Create a visualisation to show how the distribution of marital status changes
+over the course of the simulation.
 
 ```{r fig.height = 7}
 library(data.table)

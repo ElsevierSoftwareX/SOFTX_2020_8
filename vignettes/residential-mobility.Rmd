@@ -34,7 +34,7 @@ set.seed(728)
 
 ## Introduction
 
-Residential mobility or household relocation plays an important role in determining the urban traffic and the housing market activity. In this example, we create a simple residential mobility model which comprises of two stages. The first stage is for households to decide whether to move from their current residence. If they decide to move then they will go onto the second stage otherwise they will remain where they are. The second stage is for the moving households to decide where they will relocate to. 
+Residential mobility or household relocation plays an important role in determining the urban traffic and the real estate market condition. In this example, we create a simple residential mobility model which comprises of two stages. The first stage is for households to decide whether to move from their current residence. If they decide to move then they will go onto the second stage otherwise they will remain where they are. The second stage is for the moving households to decide where they will relocate to. 
 
 ```{r , echo = FALSE, fig.cap="Flowchart of the processes in the simple residential mobility model", fig.width = 4, fig.height = 4, fig.asp=0.3}
 mermaid("
@@ -80,7 +80,7 @@ nb_list <- st_queen(toy_zones)
 Since `nb_list` refers to the zones by their row numbers as listed in the `toy_zones`, we need to replace those row numbers with their respective `zid`.
 
 ```{r }
-# make the returned object into from `st_queen` a list.
+# make the returned object from `st_queen` into a list by removing its class and attributes.
 class(nb_list) <- NULL 
 attributes(nb_list) <- NULL
 # name all elements in the list by their associated `zid`.
@@ -222,9 +222,9 @@ event_ltmobility_residentialRelocation <- function(world) {
 }
 ```
 
-### create a microsimulation pipeline
+### Create a microsimulation pipeline
 
-To microsimulate the residential mobility event for multiple interations we can simply use a flow control statement such as a 'for' loop. The below chunk of codes run the residential mobility event that we have just created for 10 iterations and at the end of each iteration the total number of households in each zone will be stored inside count_ls which will be indexed by the iteration number.
+To simulate the residential mobility event for multiple iterations we can simply use a flow control statement such as a 'for' loop. The below chunk of codes run the residential mobility event that we have just created for 10 iterations and at the end of each iteration the total number of households in each zone will be stored inside `count_ls` which will be indexed by the iteration number.
 
 ```{r}
 start_iter <- 1
