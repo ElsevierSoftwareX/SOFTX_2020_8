@@ -111,7 +111,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dymium)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; + dymiumCore 0.0.10      Date: 2019-11-30</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; + dymiumCore 0.0.10      Date: 2019-12-01</span></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt;                                   R: 3.6.1</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt;                                  OS: Ubuntu 16.04.6 LTS</span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt;                                 GUI: X11</span></a>
@@ -133,7 +133,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p>Residential mobility or household relocation plays an important role in determining the urban traffic and the housing market activity. In this example, we create a simple residential mobility model which comprises of two stages. The first stage is for households to decide whether to move from their current residence. If they decide to move then they will go onto the second stage otherwise they will remain where they are. The second stage is for the moving households to decide where they will relocate to.</p>
+<p>Residential mobility or household relocation plays an important role in determining the urban traffic and the real estate market condition. In this example, we create a simple residential mobility model which comprises of two stages. The first stage is for households to decide whether to move from their current residence. If they decide to move then they will go onto the second stage otherwise they will remain where they are. The second stage is for the moving households to decide where they will relocate to.</p>
 <div class="figure" style="text-align: center">
 <div id="htmlwidget-985d8cbcdbe9419f04ec" style="width:100%;height:180px;" class="DiagrammeR html-widget"></div>
 <script type="application/json" data-for="htmlwidget-985d8cbcdbe9419f04ec">{"x":{"diagram":"\ngraph LR\n  Start((start))-->FirstStage{Relocate?}\n  FirstStage--Yes-->SecondStage{Where to?}\n  FirstStage--No-->NotMove[Remain in the residence]\n  SecondStage-->Move[Move to the new zone]\n  Move-->Stop((Stop))\n  NotMove-->Stop((Stop))\n  "},"evals":[],"jsHooks":[]}</script><p class="caption">
@@ -167,7 +167,7 @@ Flowchart of the processes in the simple residential mobility model
 <a class="sourceLine" id="cb3-2" data-line-number="2">nb_list &lt;-<span class="st"> </span><span class="kw">st_queen</span>(toy_zones)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; although coordinates are longitude/latitude, st_relate_pattern assumes that they are planar</span></a></code></pre></div>
 <p>Since <code>nb_list</code> refers to the zones by their row numbers as listed in the <code>toy_zones</code>, we need to replace those row numbers with their respective <code>zid</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># make the returned object into from `st_queen` a list.</span></a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># make the returned object from `st_queen` into a list by removing its class and attributes.</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(nb_list) &lt;-<span class="st"> </span><span class="ot">NULL</span> </a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span>(nb_list) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># name all elements in the list by their associated `zid`.</span></a>
@@ -222,8 +222,8 @@ Flowchart of the processes in the simple residential mobility model
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># create a emptied World object to store agents and models</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">world &lt;-<span class="st"> </span>World<span class="op">$</span><span class="kw">new</span>()</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">world<span class="op">$</span><span class="kw">add</span>(<span class="dt">x =</span> Household<span class="op">$</span><span class="kw">new</span>(new_toy_households, <span class="dt">id_col =</span> <span class="st">"hid"</span>), <span class="dt">name =</span> <span class="st">"Household"</span>)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [16:22:14] WARN  dymiumCore world$add: The given `name` will be ignored since the object in x is of a Dymium class object. The classname of the object will be used as its name.</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$add: Adding an Entity object 'Household' to Entities.</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [23:11:10] WARN  dymiumCore world$add: The given `name` will be ignored since the object in x is of a Dymium class object. The classname of the object will be used as its name.</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$add: Adding an Entity object 'Household' to Entities.</span></a></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># calling the `world` object</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">world</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; There are 1 items in self$Cont.</span></a>
@@ -277,9 +277,9 @@ Flowchart of the processes in the simple residential mobility model
 <p>As you can see, we have created a named list that contains two elements which are ‘yes’ and ‘no’ with numeric values that represent the associated probabilities to the actions. All households have 5% chance that they would move and 95% chance that they would remain where they are.</p>
 <p>The next step is to store the <code>move_rate</code> model and the list that contains the indices of neighboring zones, <code>nb_list</code>, in side the <code>world</code> object as following.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">world<span class="op">$</span><span class="kw">add</span>(<span class="dt">x =</span> move_rate, <span class="dt">name =</span> <span class="st">"move_rate"</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$add: Adding a Model object 'move_rate' to Models.</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$add: Adding a Model object 'move_rate' to Models.</span></a>
 <a class="sourceLine" id="cb12-3" data-line-number="3">world<span class="op">$</span><span class="kw">add</span>(<span class="dt">x =</span> nb_list, <span class="dt">name =</span> <span class="st">"nb_zones"</span>)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$add: Adding a Model object 'nb_zones' to Models.</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$add: Adding a Model object 'nb_zones' to Models.</span></a>
 <a class="sourceLine" id="cb12-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co"># it can be accessed using the get method as well. </span></a>
 <a class="sourceLine" id="cb12-7" data-line-number="7">world<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"move_rate"</span>)</a>
@@ -348,8 +348,8 @@ Flowchart of the processes in the simple residential mobility model
 </div>
 <div id="create-a-microsimulation-pipeline" class="section level3">
 <h3 class="hasAnchor">
-<a href="#create-a-microsimulation-pipeline" class="anchor"></a>create a microsimulation pipeline</h3>
-<p>To microsimulate the residential mobility event for multiple interations we can simply use a flow control statement such as a ‘for’ loop. The below chunk of codes run the residential mobility event that we have just created for 10 iterations and at the end of each iteration the total number of households in each zone will be stored inside count_ls which will be indexed by the iteration number.</p>
+<a href="#create-a-microsimulation-pipeline" class="anchor"></a>Create a microsimulation pipeline</h3>
+<p>To simulate the residential mobility event for multiple iterations we can simply use a flow control statement such as a ‘for’ loop. The below chunk of codes run the residential mobility event that we have just created for 10 iterations and at the end of each iteration the total number of households in each zone will be stored inside <code>count_ls</code> which will be indexed by the iteration number.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">start_iter &lt;-<span class="st"> </span><span class="dv">1</span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">end_iter &lt;-<span class="st"> </span><span class="dv">10</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3">count_ls &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>() </a>
@@ -361,16 +361,16 @@ Flowchart of the processes in the simple residential mobility model
 <a class="sourceLine" id="cb15-9" data-line-number="9">  count_ls[[i]] &lt;-</a>
 <a class="sourceLine" id="cb15-10" data-line-number="10"><span class="st">    </span>world<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"Household"</span>)<span class="op">$</span><span class="kw">get_data</span>()[, .(<span class="dt">count =</span> .N, <span class="dt">iteration =</span> i), zid]</a>
 <a class="sourceLine" id="cb15-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$start_iter: Starting year: 1</span></a>
-<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$start_iter: Starting year: 2</span></a>
-<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$start_iter: Starting year: 3</span></a>
-<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$start_iter: Starting year: 4</span></a>
-<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$start_iter: Starting year: 5</span></a>
-<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$start_iter: Starting year: 6</span></a>
-<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$start_iter: Starting year: 7</span></a>
-<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="co">#&gt; [16:22:14] INFO  dymiumCore world$start_iter: Starting year: 8</span></a>
-<a class="sourceLine" id="cb15-20" data-line-number="20"><span class="co">#&gt; [16:22:15] INFO  dymiumCore world$start_iter: Starting year: 9</span></a>
-<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="co">#&gt; [16:22:15] INFO  dymiumCore world$start_iter: Starting year: 10</span></a></code></pre></div>
+<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 1</span></a>
+<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 2</span></a>
+<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 3</span></a>
+<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 4</span></a>
+<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 5</span></a>
+<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 6</span></a>
+<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 7</span></a>
+<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 8</span></a>
+<a class="sourceLine" id="cb15-20" data-line-number="20"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 9</span></a>
+<a class="sourceLine" id="cb15-21" data-line-number="21"><span class="co">#&gt; [23:11:10] INFO  dymiumCore world$start_iter: Starting year: 10</span></a></code></pre></div>
 </div>
 </div>
 <div id="visualise-the-result" class="section level2">
@@ -463,7 +463,7 @@ Flowchart of the processes in the simple residential mobility model
 <a href="#create-a-microsimulation-model">Create a microsimulation model</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#prepare-the-initial-state-of-the-world">Prepare the initial state of the world</a></li>
       <li><a href="#prepare-models">Prepare models</a></li>
-      <li><a href="#create-a-microsimulation-pipeline">create a microsimulation pipeline</a></li>
+      <li><a href="#create-a-microsimulation-pipeline">Create a microsimulation pipeline</a></li>
       </ul>
 </li>
       <li><a href="#visualise-the-result">Visualise the result</a></li>
