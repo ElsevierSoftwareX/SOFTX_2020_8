@@ -3,6 +3,7 @@ pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   getting-started: getting-started.html
+  mate-matching: mate-matching.html
   modelling-pipeline: modelling-pipeline.html
   modules: modules.html
   residential-mobility: residential-mobility.html
