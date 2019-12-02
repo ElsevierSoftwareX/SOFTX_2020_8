@@ -10,16 +10,18 @@ navbar:
       href: index.html
     - text: Getting Started
       href: articles/getting-started.html
-    - text: Articles
+    - text: Use cases
       menu:
-      - text: 'Basics'
-      - text: 'Stages in microsimulation model development'
-        href: articles/workflow.html
-      - text: 'Creating and using modules'
-        href: articles/modules.html
-      - text: 'Create a microsimulation modelling pipeline'
-        href: articles/modelling-pipeline.html
-      - text: "------------------"
-      - text: 'Use cases'
-      - text: 'A residential mobility example'
+#      - text: 'Basics'
+#      - text: 'Stages in microsimulation model development'
+#        href: articles/workflow.html
+#      - text: 'Creating and using modules'
+#        href: articles/modules.html
+#      - text: 'Create a microsimulation modelling pipeline'
+#        href: articles/modelling-pipeline.html
+#     - text: "------------------"
+#      - text: 'Use cases'
+      - text: 'Residential mobility'
         href: articles/residential-mobility.html
+      - text: 'Mate matching'
+        href: articles/mate-matching.html
