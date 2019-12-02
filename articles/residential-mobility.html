@@ -213,8 +213,8 @@ Flowchart of the processes in the simple residential mobility model
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># create a emptied World object to store agents and models</span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">world &lt;-<span class="st"> </span>World<span class="op">$</span><span class="kw">new</span>()</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">world<span class="op">$</span><span class="kw">add</span>(<span class="dt">x =</span> Household<span class="op">$</span><span class="kw">new</span>(new_toy_households, <span class="dt">id_col =</span> <span class="st">"hid"</span>), <span class="dt">name =</span> <span class="st">"Household"</span>)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [13:57:58] WARN  dymiumCore world$add: The given `name` will be ignored since the object in x is of a Dymium class object. The classname of the object will be used as its name.</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$add: Adding an Entity object 'Household' to Entities.</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; [22:12:19] WARN  dymiumCore world$add: The given `name` will be ignored since the object in x is of a Dymium class object. The classname of the object will be used as its name.</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$add: Adding an Entity object 'Household' to Entities.</span></a></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># calling the `world` object</span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2">world</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; There are 1 items in self$Cont.</span></a>
@@ -268,9 +268,9 @@ Flowchart of the processes in the simple residential mobility model
 <p>As you can see, we have created a named list that contains two elements which are ‘yes’ and ‘no’ with numeric values that represent the associated probabilities to the actions. All households have 5% chance that they would move and 95% chance that they would remain where they are.</p>
 <p>The next step is to store the <code>move_rate</code> model and the list that contains the indices of neighboring zones, <code>nb_list</code>, in side the <code>world</code> object as following.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">world<span class="op">$</span><span class="kw">add</span>(<span class="dt">x =</span> move_rate, <span class="dt">name =</span> <span class="st">"move_rate"</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$add: Adding a Model object 'move_rate' to Models.</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$add: Adding a Model object 'move_rate' to Models.</span></a>
 <a class="sourceLine" id="cb12-3" data-line-number="3">world<span class="op">$</span><span class="kw">add</span>(<span class="dt">x =</span> nb_list, <span class="dt">name =</span> <span class="st">"nb_zones"</span>)</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$add: Adding a Model object 'nb_zones' to Models.</span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$add: Adding a Model object 'nb_zones' to Models.</span></a>
 <a class="sourceLine" id="cb12-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co"># it can be accessed using the get method as well. </span></a>
 <a class="sourceLine" id="cb12-7" data-line-number="7">world<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"move_rate"</span>)</a>
@@ -347,36 +347,16 @@ Flowchart of the processes in the simple residential mobility model
 <a class="sourceLine" id="cb14-9" data-line-number="9">  count_ls[[i]] &lt;-</a>
 <a class="sourceLine" id="cb14-10" data-line-number="10"><span class="st">    </span>world<span class="op">$</span><span class="kw"><a href="https://rdrr.io/r/base/get.html">get</a></span>(<span class="st">"Household"</span>)<span class="op">$</span><span class="kw">get_data</span>()[, .(<span class="dt">count =</span> .N, <span class="dt">iteration =</span> i), by =<span class="st"> </span>zid]</a>
 <a class="sourceLine" id="cb14-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 1</span></a>
-<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-15" data-line-number="15"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 2</span></a>
-<a class="sourceLine" id="cb14-16" data-line-number="16"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 3</span></a>
-<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 4</span></a>
-<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 5</span></a>
-<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 6</span></a>
-<a class="sourceLine" id="cb14-28" data-line-number="28"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-29" data-line-number="29"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-30" data-line-number="30"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 7</span></a>
-<a class="sourceLine" id="cb14-31" data-line-number="31"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-32" data-line-number="32"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-33" data-line-number="33"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 8</span></a>
-<a class="sourceLine" id="cb14-34" data-line-number="34"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-35" data-line-number="35"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-36" data-line-number="36"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 9</span></a>
-<a class="sourceLine" id="cb14-37" data-line-number="37"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-38" data-line-number="38"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a>
-<a class="sourceLine" id="cb14-39" data-line-number="39"><span class="co">#&gt; [13:57:58] INFO  dymiumCore world$start_iter: Starting year: 10</span></a>
-<a class="sourceLine" id="cb14-40" data-line-number="40"><span class="co">#&gt; [13:57:58] WARN  dymiumCore private$update: zid is being added to the attribute data of Household</span></a>
-<a class="sourceLine" id="cb14-41" data-line-number="41"><span class="co">#&gt; as it is not yet an attribute of Household.</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 1</span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 2</span></a>
+<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 3</span></a>
+<a class="sourceLine" id="cb14-15" data-line-number="15"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 4</span></a>
+<a class="sourceLine" id="cb14-16" data-line-number="16"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 5</span></a>
+<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 6</span></a>
+<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 7</span></a>
+<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 8</span></a>
+<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 9</span></a>
+<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; [22:12:19] INFO  dymiumCore world$start_iter: Starting year: 10</span></a></code></pre></div>
 </div>
 </div>
 <div id="visualise-the-result" class="section level2">
