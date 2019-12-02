@@ -147,7 +147,7 @@ event_demography_maritalStatus <- function(world) {
   
   # update the `marital_status` column of the individual agents using the simulated 
   # result
-  TransMaritalStatus$update_agents("marital_status")
+  TransMaritalStatus$update_agents(attr = "marital_status")
   
   # end of event must returns the input world object which now contains the updated
   # individual agents.

@@ -41,4 +41,5 @@ Suggests:
   av,
   png,
   gifski,
-  magick
+  magick,
+  ggthemes

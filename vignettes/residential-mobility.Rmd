@@ -159,16 +159,7 @@ world$get("move_rate")
 # world$get_model("move_rate")
 ```
 
-Now we must create a transition event that is to move or not to move. Since this is a choice situation it is a classification problem. 
-
-```{r}
-TransitionMove <- R6::R6Class(
-  classname = "TransitionMove", 
-  inherit = TransitionClassification
-  )
-```
-
-This transition class `TransitionMove` allows a probabilistic model such as the one we have just created, `move_rate`, for simulation (Monte Carlo).
+`TransitionClassification` allows a probabilistic model such as the one we have just created, `move_rate`, to be used for simulation (Monte Carlo).
 
 The steps of the residential mobility event are inside the following function. 
 
@@ -178,7 +169,7 @@ event_ltmobility_residentialRelocation <- function(world) {
   Hh <- world$get("Household")  
 
   # simulate the first stage - move or not move? ----
-  TransMove <- TransitionMove$new(x = Hh, model = world$get("move_rate")$get())
+  TransMove <- TransitionClassification$new(x = Hh, model = world$get("move_rate")$get())
   
   # get_result returns a data.table with two columns `id` and `response`.
   moving_household_ids <- TransMove$get_result()[response == "yes", id]
@@ -210,12 +201,12 @@ event_ltmobility_residentialRelocation <- function(world) {
     mover_choicemodel[, zid := NULL]
     
     # simulate location selection
-    TransWhereTo <- TransitionMove$new(
+    TransWhereTo <- TransitionClassification$new(
       x = Hh,
       model = mover_choicemodel,
       targeted_agents = mover_choicemodel[, hid],
       model_by_id = TRUE
-    )$update_agents(colname = "zid")
+    )$update_agents(attr = "zid")
   }
   
   return(world)
@@ -236,7 +227,7 @@ for (i in start_iter:end_iter) {
   
   # record the count of households by zone in each iteration
   count_ls[[i]] <-
-    world$get("Household")$get_data()[, .(count = .N, iteration = i), zid]
+    world$get("Household")$get_data()[, .(count = .N, iteration = i), by = zid]
 }
 
 ```
