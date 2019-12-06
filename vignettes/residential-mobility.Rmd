@@ -1,6 +1,11 @@
 ---
 title: "Residential mobility"
-output: rmarkdown::html_vignette
+output:
+  prettydoc::html_pretty:
+    theme: cayman
+    highlight: github
+    math: katex
+    css: "custom.css"
 vignette: >
   %\VignetteIndexEntry{Residential mobility}
   %\VignetteEncoding{UTF-8}
