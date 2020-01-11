@@ -38,3 +38,6 @@ vignettes/*.pdf
 # pkgdown files
 docs/
 .Rproj.user
+inst/doc
+doc
+Meta
