@@ -5,6 +5,7 @@ output:
     theme: cayman
     highlight: github
     math: katex
+    css: "custom.css"
 ---
 
 ```{r, include = FALSE}
@@ -22,6 +23,13 @@ knitr::opts_knit$set(root.dir = here::here())
 here::here()
 ```
 
+# What is a module?
+
+There are many ways to store a group of functions in R. The simplest way is to save 
+them as a script, whereas putting them into a package should be the last resort 
+since it can pose new challenges for non-experienced R users. The ‘modules’ package
+allows source code to be organised in a way that mimics a package, while being much
+simpler to develop, and gives some of the features of a package with less overhead. 
 
 # Using existing modules
 

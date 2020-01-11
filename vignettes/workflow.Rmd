@@ -19,6 +19,8 @@ library(dymium)
 
 ## Microsimulation
 
+In dymium, all entities are simulated simultaneously in a pre-defined discrete-time period. For example, all individual agents age at the same time as if they all have the same date of birth. Note that, an alterntive where all agents have different date of births do exist in a continuous-time microsimulation. 
+
 ## Validation
 
 ## Calibration
